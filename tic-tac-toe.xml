@@ -66,7 +66,7 @@ public class Main {
         }
         System.out.println();
     }
-    // rows and columns
+    // there are rows and columns:
     private static boolean checkWin() {
         for (int i = 0; i < 3; i++) {
             if ((array[i][0] == currentPlayer &&
@@ -78,7 +78,7 @@ public class Main {
                 return true;
             }
         }
-//diagonals
+// there are diagonals:
         return (array[0][0] == currentPlayer &&
                 array[1][1] == currentPlayer &&
                 array[2][2] == currentPlayer) ||
