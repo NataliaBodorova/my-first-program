@@ -71,7 +71,7 @@ public class Main {
                 return true;
             }
         }
-//diagonals
+        //diagonals
         return (array[0][0] == currentPlayer &&
                 array[1][1] == currentPlayer &&
                 array[2][2] == currentPlayer) ||
