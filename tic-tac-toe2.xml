@@ -1,0 +1,91 @@
+import java.util.Scanner;
+
+public class Main {
+    private static char currentPlayer = 'X';
+    private static char[][] array = new char[3][3];
+
+    public static void main(String[] args) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length; j++) {
+                array[i][j] = ' ';
+            }
+        }
+        //play game
+        playGame();
+    }
+
+    private static void playGame() {
+        boolean end = false;
+        Scanner scanner = new Scanner(System.in);
+
+        while (!end) {
+            giveBoard();
+            System.out.println("Player " + currentPlayer + ", write row and column (0-2):");
+
+            int row = scanner.nextInt();
+            int column = scanner.nextInt();
+
+            if (row >= 0 && row < array.length && column >= 0 && column < array.length && array[row][column] == ' ') {
+                array[row][column] = currentPlayer;
+
+                if (checkWin()) {
+                    giveBoard();
+                    System.out.println("Player " + currentPlayer + " won!");
+                    end = true;
+                } else if (isDraw()) {
+                    giveBoard();
+                    System.out.println("It's a draw!");
+                    end = true;
+                } else {
+                    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+                }
+            } else {
+                System.out.println("Try again. Invalid or occupied cell.");
+            }
+        }
+
+        scanner.close();
+    }
+
+    private static void giveBoard() {
+        System.out.println();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.print(" " + array[i][j]);
+                if (j < 2) System.out.print(" |");
+            }
+            System.out.println();
+            if (i < 2) System.out.println("---+---+---");
+        }
+        System.out.println();
+    }
+// rows and columns
+    private static boolean checkWin() {
+        for (int i = 0; i < 3; i++) {
+            if ((array[i][0] == currentPlayer &&
+                    array[i][1] == currentPlayer &&
+                    array[i][2] == currentPlayer) ||
+                    (array[0][i] == currentPlayer &&
+                            array[1][i] == currentPlayer &&
+                            array[2][i] == currentPlayer)) {
+                return true;
+            }
+        }
+//diagonals
+        return (array[0][0] == currentPlayer &&
+                array[1][1] == currentPlayer &&
+                array[2][2] == currentPlayer) ||
+                (array[0][2] == currentPlayer &&
+                        array[1][1] == currentPlayer &&
+                        array[2][0] == currentPlayer);
+    }
+
+    private static boolean isDraw() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (array[i][j] == ' ') return false;
+            }
+        }
+        return true;
+    }
+}
